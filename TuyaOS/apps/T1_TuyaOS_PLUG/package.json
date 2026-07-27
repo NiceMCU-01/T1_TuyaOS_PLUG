@@ -1,0 +1,11 @@
+{
+    "baseSdkVersionId": 534054,
+    "sdkVersionId": 535009,
+    "sdkDescEN": "T1 Module Plug Development Kit",
+    "sdkDescCN": "T1 插座产品开发包",
+    "sdkVersion": "2.0.5",
+    "sdkVerDescCN": "更新默认配置",
+    "sdkName": "tuyaos_wf_t1_elp-tuyaos_wf_t1_elp_plug",
+    "tuyaosVersion": "3.11.25",
+    "sdkVerDescEN": "T1 Module Plug Development Kit"
+}

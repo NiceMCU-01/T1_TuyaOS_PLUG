@@ -1,0 +1,185 @@
+menuconfig ENERGY_MONITOR_ENABLE
+    bool
+    prompt "energy monitor configuration"
+    default y
+    help
+    电量统计功能
+
+if (ENERGY_MONITOR_ENABLE)
+
+############### overcharge ####################
+rsource "./OVERCHARGEconfig"
+############### fault #########################
+rsource "./FAULTconfig"
+############### product test ##################
+rsource "./PRODTESTconfig"
+
+config ENERGY_MONITOR_NAME
+    string
+    prompt "energy monitor driver name"
+    default "energy_monitor"
+
+############### energy monitor chip ####################
+menu "energy monitor chip configuration"
+
+choice
+prompt "energy monitor chip select"
+default ENERGY_MONITOR_CHIP_HLW8012
+
+config ENERGY_MONITOR_CHIP_HLW8012
+    bool
+    prompt "HLW8012"
+
+config ENERGY_MONITOR_CHIP_HLW8032
+    bool
+    prompt "HLW8032"
+
+config ENERGY_MONITOR_CHIP_BL0937
+    bool
+    prompt "BL0937"
+
+config ENERGY_MONITOR_CHIP_BL0942
+    bool
+    prompt "BL0942"
+
+endchoice
+
+
+############## HLW8012 ###################
+if (ENERGY_MONITOR_CHIP_HLW8012=y || ENERGY_MONITOR_CHIP_BL0937=y)
+config ENERGY_MONITOR_TIMER_ID
+    int
+    prompt "energy monitor timer id"
+    range 0 5
+    default 0
+
+config ENERGY_MONITOR_SEL_PIN
+    int
+    prompt "energy monitor sel pin"
+    range 0 999
+    default 20
+
+config ENERGY_MONITOR_SEL_LEVEL
+    int
+    prompt "energy monitor sel level"
+    range 0 1
+    default 1
+    help
+    电压采样时，SEL_PIN 应输出的电平值。
+
+config ENERGY_MONITOR_CF1_PIN
+    int
+    prompt "energy monitor cf1 pin"
+    range 0 999
+    default 8
+
+config ENERGY_MONITOR_CF_PIN
+    int
+    prompt "energy monitor cf pin"
+    range 0 999
+    default 6
+
+endif
+
+############## HLW8032 ###################
+if (ENERGY_MONITOR_CHIP_HLW8032=y)
+config ENERGY_MONITOR_UART_ID
+    int
+    prompt "energy monitor uart id"
+    range 0 1
+    default 0
+endif
+
+############## BL0942 ###################
+if (ENERGY_MONITOR_CHIP_BL0942=y)
+config ENERGY_MONITOR_UART_ID
+    int
+    prompt "energy monitor uart id"
+    range 0 1
+    default 0
+
+config ENERGY_MONITOR_CHIP_ADDR
+    int
+    prompt "bl0942 chip addr"
+    range 0 3
+    default 0
+    help
+    由硬件片选地址管脚为[A1， A2_NCS]决定，内部默认下拉。
+endif
+
+endmenu
+
+############### DPID ####################
+config ENERGY_MONITOR_ADD_ELE_DPID
+    int
+    prompt "add electricity DPID"
+    range 1 255
+    default 17
+    help
+    增加电量的 DPID
+
+config ENERGY_MONITOR_CUR_CURRENT_DPID
+    int
+    prompt "real-time current DPID"
+    range 1 255
+    default 18
+    help
+    当前电流值的 DPID
+
+config ENERGY_MONITOR_CUR_POWER_DPID
+    int
+    prompt "real-time power DPID"
+    range 1 255
+    default 19
+    help
+    当前功率值的 DPID
+
+config ENERGY_MONITOR_CUR_VOLTAGE_DPID
+    int
+    prompt "real-time voltage DPID"
+    range 1 255
+    default 20
+    help
+    当前电压值的 DPID
+
+config ENERGY_MONITOR_TEST_RESULT_DPID
+    int
+    prompt "energy monitor calibration results DPID"
+    range 1 255
+    default 21
+    help
+    电量统计校准结果的 DPID
+
+config ENERGY_MONITOR_COE_VOLTAGE_DPID
+    int
+    prompt "energy monitor voltage coefficient DPID"
+    range 1 255
+    default 22
+    help
+    电量统计电压校准系数的 DPID
+
+config ENERGY_MONITOR_COE_CURRENT_DPID
+    int
+    prompt "energy monitor current coefficient DPID"
+    range 1 255
+    default 23
+    help
+    电量统计电流校准系数的 DPID
+
+config ENERGY_MONITOR_COE_POWER_DPID
+    int
+    prompt "energy monitor power coefficient DPID"
+    range 1 255
+    default 24
+    help
+    电量统计电流校准系数的 DPID
+
+config ENERGY_MONITOR_COE_ENERGY_DPID
+    int
+    prompt "energy consumed coefficient DPID"
+    range 1 255
+    default 25
+    help
+    电量统计电流校准系数的 DPID
+
+endif

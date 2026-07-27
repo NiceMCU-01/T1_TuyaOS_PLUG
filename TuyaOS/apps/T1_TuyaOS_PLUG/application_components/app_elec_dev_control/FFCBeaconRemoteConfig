@@ -1,0 +1,22 @@
+menuconfig ELEC_FFC_BEACON_REMOTE_EN
+    bool
+    default n
+    prompt "FFC Beacon Remote Config"
+
+if ELEC_FFC_BEACON_REMOTE_EN
+    config ELEC_FFC_SELECT
+        int
+        prompt "ffc_select"
+        range 0 2
+        default 0
+        help
+        遥控器功能选择
+    config ELEC_BLE_PAIR_TIME
+        int
+        prompt "ble_pair_time"
+        range 30 180
+        default 60
+        help
+        蓝牙遥控器配对时长
+endif
+

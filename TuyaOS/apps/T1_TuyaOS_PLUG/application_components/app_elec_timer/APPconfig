@@ -1,0 +1,117 @@
+menu "elec timer configuration"
+
+################### 点动开关 ####################
+config ENABLE_ELEC_DELAY_OFF_TIMER
+    bool
+    prompt "enable delay off time"
+    default y
+
+if (ENABLE_ELEC_DELAY_OFF_TIMER=y)
+config ELEC_DELAY_OFF_DPID
+    int
+    prompt "delay off(switch_inching) DP ID"
+    range 1 999
+    default 44
+    help
+    点动开关 DP ID
+endif
+
+################### 循环定时 ####################
+config ENABLE_ELEC_CYCLE_TIMER
+    bool
+    prompt "enable cycle timer"
+    default y
+
+if (ENABLE_ELEC_CYCLE_TIMER=y)
+    config ELEC_CYCLE_TIMER_DPID
+        int
+        prompt "cycle timer DP ID"
+        range 1 999
+        default 42
+endif
+
+################### 随机定时 ####################
+config ENABLE_ELEC_RANDOM_TIMER
+    bool
+    prompt "enable random timer"
+    default y
+
+if (ENABLE_ELEC_RANDOM_TIMER=y)
+    config ELEC_RANDOM_TIMER_DPID
+        int
+        prompt "random timer DP ID"
+        range 1 999
+        default 43
+endif
+
+################### 倒计时 ####################
+config ENABLE_ELEC_COUNTDOWN_TIMER
+    bool
+    prompt "enable countdown timer"
+    default y
+
+if (ENABLE_ELEC_COUNTDOWN_TIMER=y)
+    config ELEC_COUNTDOWN_TIMER_NUM
+        int
+        prompt "countdown timer number"
+        range 0 8
+        default 2
+    
+    config ELEC_COUNTDOWN_TM_1_DPID
+        int
+        prompt "countdown timer 1 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=1)
+        range 1 999
+        default 9
+    
+    config ELEC_COUNTDOWN_TM_2_DPID
+        int
+        prompt "countdown timer 2 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=2)
+        range 1 999
+        default 10
+    
+    config ELEC_COUNTDOWN_TM_3_DPID
+        int
+        prompt "countdown timer 3 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=3)
+        range 1 999
+        default 11
+
+    config ELEC_COUNTDOWN_TM_4_DPID
+        int
+        prompt "countdown timer 4 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=4)
+        range 1 999
+        default 12
+
+    config ELEC_COUNTDOWN_TM_5_DPID
+        int
+        prompt "countdown timer 5 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=5)
+        range 1 999
+        default 13
+    
+    config ELEC_COUNTDOWN_TM_6_DPID
+        int
+        prompt "countdown timer 6 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=6)
+        range 1 999
+        default 14
+
+    config ELEC_COUNTDOWN_TM_7_DPID
+        int
+        prompt "countdown timer 7 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=7)
+        range 1 999
+        default 15
+    
+    config ELEC_COUNTDOWN_TM_8_DPID
+        int
+        prompt "countdown timer 8 DP ID"
+        depends on (ELEC_COUNTDOWN_TIMER_NUM>=8)
+        range 1 999
+        default 16
+endif
+
+endmenu

@@ -1,0 +1,48 @@
+menuconfig PRODUCT_TEST_ENERGY_MONITOR
+    bool
+    default y
+    prompt "elec factory production test function enable"
+
+if PRODUCT_TEST_ENERGY_MONITOR
+    comment "elec factory production test configuration"
+config ENERGY_MONITOR_CAL_ERR_PERCENT
+    int
+    prompt "elec product test energy meter calibration error percent"
+    range 0 100
+    default 50
+    help
+    电量统计误差百分比，百分比由默认参数计算得到的期望参数与实际的校准参数进行对比得到的。
+
+config ENERGY_MONITOR_CAL_VOLTAGE
+    int
+    prompt "elec energy meter calibration voltage (2200 means 220V)"
+    range 0 9999
+    default 2200
+    help
+    计量校准电压值，扩大 10 倍。 2200 表示 220V； 1200 表示 120V 。
+
+config ENERGY_MONITOR_CAL_CURRENT
+    int
+    prompt "elec energy meter calibration current (392 means 0.392A)"
+    range 0 9999
+    default 392
+    help
+    计量校准电流值，扩大 1000 倍。 392 表示 0.392A； 833 表示 0.833A 。
+
+config ENERGY_MONITOR_CAL_POWER
+    int
+    prompt "elec energy meter calibration power (864 means 86.4w)"
+    range 0 9999
+    default 864
+    help
+    计量校准实时功率值，扩大 10 倍。 864 表示 86.4w； 1000 表示 100w 。
+
+config ENERGY_MONITOR_SAMPLE_RESISTOR
+    int
+    prompt "elec energy meter sample resistor (mR)"
+    range 0 999
+    default 1
+    help
+    采样电阻大小，单位毫欧。bl0937，hlw8012可选择:1 毫欧 或 2 毫欧；bl0942 和 hlw8032 默认 1 毫欧。采样电阻的大小会影响到电流和功率的转换国际标准单位的数值。
+
+endif

@@ -1,0 +1,32 @@
+menuconfig ENABLE_ELEC_CHILD_LOCK
+    bool
+    default y
+    prompt "child lock configuration"
+
+if ENABLE_ELEC_CHILD_LOCK
+
+config ELEC_CHILD_LOCK_DPID
+    int
+    prompt "child lock DP ID"
+    range 1 999
+    default 41
+    help
+    点动开关 DP ID
+
+config ELEC_CHILD_LOCK_AUTO_LOCK_ENABLE
+    bool
+    prompt "enable child lock auto lock"
+    default y
+    help
+    使能童锁自动上锁
+
+config ELEC_CHILD_LOCK_AUTO_LOCK_TIME_MS
+    int
+    prompt "child lock auto lock time(ms)"
+    depends on (ELEC_CHILD_LOCK_AUTO_LOCK_ENABLE=y)
+    range 1000 10000
+    default 5000
+    help
+    童锁自动上锁时间，单位毫秒
+
+endif

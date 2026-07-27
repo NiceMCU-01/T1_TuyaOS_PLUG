@@ -1,0 +1,85 @@
+if TY_CATEGORY_TP_ELE
+    menu "TuyaOS elec application configuration"
+
+    ################### 通用配置 ####################	
+    config ENABLE_ELEC_COMPATIBLE_DATA_FORMAT
+        bool
+        prompt "enable elec compatible data format(for old flash,must be tested)"
+        default n
+        help
+        启用兼容旧数据格式, 默认不启用, 启用后, 务必测试
+
+    config ENABLE_NVS_STORAGE
+        bool
+        default n
+        prompt "nvs storage enable"
+        help
+        NVS存储使能, NVS是一块存储小数据量的FLASH存储区
+
+if ENABLE_NVS_STORAGE
+
+	config NVS_STORAGE_START_ADDRESS
+		hex
+		default 0x1F1000
+		prompt "nvs storage start address"
+		help
+		nvs storage start address
+		
+	config NVS_STORAGE_END_ADDRESS
+		hex
+		default 0x1F4000
+		prompt "nvs storage end address"
+		help
+		nvs storage end address
+endif
+
+    config ELEC_JSON_UPGRADE_EN
+        bool
+        default n
+        prompt "json upgrade en "
+        help
+        json热升级
+
+if ELEC_JSON_UPGRADE_EN
+    config ELEC_JSON_VERSION
+        string
+        default "1.0.0"
+        prompt "json version "
+        help
+        json版本号
+endif
+
+    config ELEC_RUNTIME_SWITCH_EN
+        bool
+        default y
+        prompt "runtime switch en "
+        help
+        记录dp
+
+if ELEC_RUNTIME_SWITCH_EN
+    config ELEC_RUNTIME_SWITCH_1_DPID
+        int
+        prompt "runtime switch1 dpid"
+        range 0 999
+        default 51
+        help
+        运行时长开关DPID
+    config ELEC_RUNTIME_SWITCH_NUM_MAX
+        int
+        prompt "runtime switch num"
+        range 0 30
+        default 30
+        help
+        缓存条数
+endif
+    ################### 业务功能模块 ####################
+    rsource "../../application_components/app_elec_child_lock/APPconfig"
+
+    rsource "../../application_components/app_elec_dev_control/APPconfig"
+    
+    rsource "../../application_components/app_elec_energy_monitor/APPconfig"
+
+    rsource "../../application_components/app_elec_timer/APPconfig"
+
+    endmenu
+endif

@@ -1,0 +1,142 @@
+menu "elec led indicate configuration"
+
+#################### 配网指示灯 ####################
+config ENABLE_ELEC_NET_INDICATOR_MUX_MODE
+    bool
+    prompt "enable network led multiplex mode"
+    default y
+    help
+    使能复用模式，网络指示灯可作为总控指示灯使用。不使能则仅作为网络指示灯使用。
+
+config ELEC_NET_LED_NOT_CONNECT
+    int
+    prompt "LED status when network is not configured"
+    range 0 2
+    default 0
+    depends on (ENABLE_ELEC_NET_INDICATOR_MUX_MODE=n)
+    help
+    0: 未配置网络前 led 总是关闭；1: 未配置网络前 led 总是打开；2: 未配置网络前 led 指示继电器状态。
+
+config ELEC_NET_LED_CONNECTED
+    int
+    prompt "LED status after network configuration"
+    range 0 2
+    default 1
+    depends on (ENABLE_ELEC_NET_INDICATOR_MUX_MODE=n)
+    help
+    0: 网络配置后 led 总是关闭；1: 网络配置后 led 总是打开；2: 网络配置后 led 指示继电器状态。
+
+config ELEC_NET_LED_NAME
+    string
+    prompt "network led name"
+    default "net_led"
+    help
+    网络指示灯名称
+
+config ELEC_NET_LED_PIN
+    int
+    prompt "network led pin"
+    range 0 999
+    default 22
+    help
+    网络指示灯引脚
+
+config ELEC_NET_LED_LEVEL
+    int
+    prompt "network led level"
+    range 0 1
+    default 1
+    help
+    网络指示灯点亮时引脚应输出的电平值
+
+config ELEC_NET_LED_PIN_MODE
+    int
+    prompt "network led pin mode"
+    range 0 6
+    default 4
+    help
+    4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+
+config ELEC_NET_LED_AP_FLASH_MS
+    int
+    prompt "wifi provisioning AP mode network led blink time(ms)"
+    range 100 10000
+    default 1500
+    help
+    AP 配网模式时配网指示灯闪烁时间
+
+config ELEC_NET_LED_EZ_FLASH_MS
+    int
+    prompt "wifi provisioning EZ mode network led blink time(ms)"
+    range 100 10000
+    default 250
+    help
+    EZ 配网模式时配网指示灯闪烁时间
+
+#################### 总控指示灯 ####################
+config ENABLE_POWER_INDICATOR
+    bool
+    prompt "enable power indicator"
+    default y
+    help
+    使能总控指示灯
+
+config ELEC_LIGHT_MODE_DPID
+    int
+    prompt "light mode dpid"
+    range 1 999
+    default 40
+    help
+    设置指示灯模式 DPID
+
+config ELEC_LIGHT_MODE
+    int
+    prompt "set light mode"
+    range 0 3
+    default 0
+    help
+    指示灯模式设置。0： 开关状态，1：指示位置，2：常灭，3：常亮。状态3部分产品可能不支持
+
+if (ENABLE_POWER_INDICATOR=y && ENABLE_ELEC_NET_INDICATOR_MUX_MODE=n)
+config ELEC_POWER_LED_NAME
+    string
+    prompt "power led name"
+    default "power_led"
+    help
+    总控指示灯名称
+
+config ELEC_POWER_LED_PIN
+    int
+    prompt "power led pin"
+    range 0 999
+    default 22
+    help
+    网络指示灯引脚
+
+config ELEC_POWER_LED_LEVEL
+    int
+    prompt "power led level"
+    range 0 1
+    default 1
+    help
+    网络指示灯点亮时引脚应输出的电平值
+
+config ELEC_POWER_LED_PIN_MODE
+    int
+    prompt "power led pin mode"
+    range 0 6
+    default 4
+    help
+    4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+endif
+
+if (ENABLE_POWER_INDICATOR=y && ENABLE_ELEC_NET_INDICATOR_MUX_MODE=y)
+config ELEC_POWER_LED_NAME
+    string
+    prompt "power led name"
+    default ELEC_NET_LED_NAME
+    help
+    总控指示灯名称
+endif
+
+endmenu

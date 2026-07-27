@@ -1,0 +1,6 @@
+rsource "../application_components/ty_app_config/APPconfig"
+rsource "../application_components/ty_app_elec_component/APPconfig"
+rsource "../application_components/app_elec_timer/APPconfig"
+rsource "../application_components/app_elec_child_lock/APPconfig"
+rsource "../application_components/app_elec_energy_monitor/APPconfig"
+rsource "../application_components/app_elec_dev_control/APPconfig"

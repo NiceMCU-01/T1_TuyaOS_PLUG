@@ -1,0 +1,194 @@
+mainmenu "TuyaOS Application Configuration"
+
+################### 选择品类 ####################	
+	
+choice
+    prompt "product category type"
+	default TY_CATEGORY_TP_LIGHT
+	
+	config TY_CATEGORY_TP_LIGHT
+		bool "light product"
+		
+	config TY_CATEGORY_TP_ELE
+		bool "electric product"
+	
+	config TY_CATEGORY_TP_COMM_PROT
+		bool "common protocol"
+		
+	config TY_CATEGORY_TP_SENSOR
+		bool "sensor product"
+	
+	config TY_CATEGORY_TP_LOCK
+		bool "lock product"	
+
+	config TY_CATEGORY_TP_APPLIANCE
+		bool "appliance"		
+		
+	config TY_CATEGORY_TP_REMOTE
+		bool "remote product ex. FFC/IR"			
+
+endchoice
+
+config ENABLE_TY_SOC_DEV
+    bool
+	prompt "is singel soc device  Y:soc N:soc+mcu"
+    default y 
+    depends on !TY_CATEGORY_TP_COMM_PROT
+	help
+	单品类设备还是外接MCU设备
+
+config TY_FIRMWARE_KEY
+    string
+    prompt "input firmare key"
+    help
+    固件 KEY, 如果没有则不填
+
+config ENABLE_TY_FIRMWARE_OEM
+    bool
+    prompt "is oem firmware"
+    default n
+    help
+    是否是 oem 固件
+
+config ENABLE_TY_LOAD_OEM_PAR
+    bool
+    prompt "online oem config enable"
+    default n
+    depends on ENABLE_TY_FIRMWARE_OEM
+    help
+    是否读 OEM 配置
+
+config ENABLE_TY_MATTER
+    bool
+    prompt "is matter device"
+    default n
+    help
+    是否是 matter 设备
+
+config ENABLE_FIRMWARE_DEBUG
+    bool
+	prompt "is debug firmware"
+    default n
+	help
+	是否是调试固件
+
+config ENABLE_EXT_RAM
+    bool
+    prompt "is enable external ram"
+    default n
+    help
+    是否使用外部ram,目前只用于T5平台选择
+
+config T1_PLUG_WAY_NUM
+    int
+    prompt "T1 plug product way number"
+    range 1 4
+    default 4
+    depends on TY_CATEGORY_TP_ELE
+    help
+    T1 插座产品路数。1/2/3/4 路分别选择对应 PID、通道数量和遥控器按键映射。
+
+if !TY_CATEGORY_TP_COMM_PROT
+    config TY_PRODUCT_ID
+        string
+        prompt "input product id (PID)"
+    default ""
+        depends on !ENABLE_TY_FIRMWARE_OEM
+        help
+        输入PID
+
+    config TY_NET_CFG_TIME
+        int
+        prompt "network config time sec"
+        default 180
+        range 180 600
+        help
+        设备配网超时时间 秒
+        
+    config TY_WIFI_CFG_MTHD
+        int
+        prompt "wifi config method select 0:OLD 1:LOW_POWER 2:SPCL_MODE 3:OLD_PROD 4:LOW_POWER_AUTOCFG 5:SPCL_AUTOCFG"
+        default 3
+        range 0 5
+        help
+        GWCM_OLD                0   // do not have low power mode
+        GWCM_LOW_POWER          1   // with low power mode
+        GWCM_SPCL_MODE          2   // special with low power mode
+        GWCM_OLD_PROD           3   // GWCM_OLD mode with product
+        GWCM_LOW_POWER_AUTOCFG  4   // with low power mode && auto cfg
+        GWCM_SPCL_AUTOCFG       5   // special with low power mode && auto cfg
+
+    config TY_WIFI_START_MODE
+        int
+        prompt "wif start mode 0:AP ONLY 1:SMART_ONLY 2:AP FIRST 3:SMART FIRST 4:SMART AP CONCURRENT 5:NO CONFIG"
+        default 3
+        range 0 4
+        help	
+        WF_START_AP_ONLY        0   // only have ap-cfg mode
+        WF_START_SMART_ONLY     1   // only have smart-cfg mode
+        WF_START_AP_FIRST       2   // have both ap-cfg and smart-cfg. default is ap-cfg mode
+        WF_START_SMART_FIRST    3   // have both ap-cfg and smart-cfg. default is smart-cfg mode
+        WF_START_SMART_AP_CONCURRENT    4   //  ap-cfg and smart-cfg is concurrent	
+        WF_NO_CFG               5   //  close tuya wifi netcfg	
+endif
+
+config ENABLE_MF_TEST_STATUS
+    bool
+    prompt "register mf test status callback function"
+    default n
+    help
+    应用是否要注册 mf test 相关的回调通知函数。如在mf test前做些什么操作。
+
+config ENABLE_GET_MF_TEST_USER_PARAM
+    bool
+    prompt "get user param (oem data param) when module test"
+    default n
+    depends on ENABLE_TY_LOAD_OEM_PAR
+    help
+    在模组产测时,应用是否要获取到用户配置数据,如oem配置。
+
+config ENABLE_PRODUCT_TEST_SCAN_WIFI
+    bool
+    prompt "scan app specified wifi"
+    default n
+    help
+    设备启动时扫描app指定的wifi列表作为成品入口。	
+
+config ENABLE_PRODUCT_TEST_MF
+    bool
+    prompt "mf product test"
+    default n
+    help
+    配合涂鸦上位机的成品产测。	
+
+config ENABLE_TY_INFORM_OTA_REQ
+    bool
+    prompt "inform application when ota request created"
+    default y if TY_CATEGORY_TP_COMM_PROT
+    default n
+    help
+    当有固件升级的请求时需要通知应用层, 应用层可通过返回值同意或拒绝本次请求
+
+config ENABLE_TY_MCU_OTA
+    bool
+    prompt "mcu ota enable"
+    default y
+    depends on !ENABLE_TY_SOC_DEV
+    help
+    MCU的固件升级功能是否使能
+
+config ENABLE_TY_PROD_INIT_NORMAL_PROCESS
+    bool 
+    prompt "The product starts up according to the normal proces"
+    default y
+    help
+    产品是否以常规流程启动: 先进行设备配网初始化再进行模块功能初始化
+
+config ENABLE_TY_WIFI_BRIDGE
+    bool
+    prompt "wifi bridge enable"
+    default n
+    help
+    是否使能wifi桥接功能,部分模组不支持，开启需要确认SDK是否支持
+
+

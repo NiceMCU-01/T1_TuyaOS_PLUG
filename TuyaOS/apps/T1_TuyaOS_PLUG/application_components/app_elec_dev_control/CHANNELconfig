@@ -1,0 +1,2145 @@
+if (ENABLE_TY_LOAD_OEM_PAR=y)
+menu "elec channel configuration"
+#################### 通道上电模式配置 ####################
+config ELEC_CHANNEL_POWER_ON_MODE
+    int
+    prompt "Power-on mode selection"
+    range 0 2
+    default 2
+    help
+    0：上电各通道保持断电状态；1：上电各个通道保持通电状态；2：上电各个通道保持断电前状态
+
+config ELEC_CHANNEL_POWER_ON_DPID
+    int
+    prompt "Power-on mode dp id"
+    range 1 999
+    default 38
+    help
+    断电记忆 DP ID
+
+#################### 通道配置 ####################
+config ELEC_CHANNEL_NUM
+    int
+    prompt "channel number"
+    range 1 8
+    default 8
+    help
+    通道个数
+
+#################### 通道 1 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_1
+    bool
+    prompt "channel 1 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=1)
+
+    config ELEC_CHANNEL_1_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 1
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_1_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_1"
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_1_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_1=y && ELEC_CHANNEL_1_RELAY_TYPE=0)
+        config ELEC_CHANNEL_1_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 23
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_1_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_1_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_1=y && ELEC_CHANNEL_1_RELAY_TYPE=1)
+        config ELEC_CHANNEL_1_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 24
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_1_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 26
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_1_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_1_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_1_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_1_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+
+        if (ENABLE_ELEC_CHANNEL_1_LED=y)
+            config ELEC_CHANNEL_1_LED_NAME
+                string
+                prompt "led name"
+                default "led_1"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_1_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 26
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_1_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_1_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 2 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_2
+    bool
+    prompt "channel 2 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=2)
+
+    config ELEC_CHANNEL_2_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 2
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_2_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_2"
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_2_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_2=y && ELEC_CHANNEL_2_RELAY_TYPE=0)
+        config ELEC_CHANNEL_2_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 9
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_2_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_2_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_2=y && ELEC_CHANNEL_2_RELAY_TYPE=1)
+        config ELEC_CHANNEL_2_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 7
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_2_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 17
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_2_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_2_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_2_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_2_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+
+        if (ENABLE_ELEC_CHANNEL_2_LED=y)
+            config ELEC_CHANNEL_2_LED_NAME
+                string
+                prompt "led name"
+                default "led_2"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_2_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 8
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_2_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_2_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 3 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_3
+    bool
+    prompt "channel 3 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=3)
+
+    config ELEC_CHANNEL_3_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 3
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_3_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_3"
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_3_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_3=y && ELEC_CHANNEL_3_RELAY_TYPE=0)
+        config ELEC_CHANNEL_3_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 21
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_3_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_3_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_3=y && ELEC_CHANNEL_3_RELAY_TYPE=1)
+        config ELEC_CHANNEL_3_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_3_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_3_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_3_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_3_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_3_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+
+        if (ENABLE_ELEC_CHANNEL_3_LED=y)
+            config ELEC_CHANNEL_3_LED_NAME
+                string
+                prompt "led name"
+                default "led_3"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_3_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 15
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_3_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_3_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 4 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_4
+    bool
+    prompt "channel 4 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=4)
+
+    config ELEC_CHANNEL_4_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 4
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_4_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_4"
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_4_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_4=y && ELEC_CHANNEL_4_RELAY_TYPE=0)
+        config ELEC_CHANNEL_4_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 6
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_4_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_4_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_4=y && ELEC_CHANNEL_4_RELAY_TYPE=1)
+        config ELEC_CHANNEL_4_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_4_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_4_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_4_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_4_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_4_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+
+        if (ENABLE_ELEC_CHANNEL_4_LED=y)
+            config ELEC_CHANNEL_4_LED_NAME
+                string
+                prompt "led name"
+                default "led_4"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_4_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 17
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_4_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_4_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 5 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_5
+    bool
+    prompt "channel 5 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=5)
+
+    config ELEC_CHANNEL_5_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 5
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_5_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_5"
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_5_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_5=y && ELEC_CHANNEL_5_RELAY_TYPE=0)
+        config ELEC_CHANNEL_5_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_5_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_5_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_5=y && ELEC_CHANNEL_5_RELAY_TYPE=1)
+        config ELEC_CHANNEL_5_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_5_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_5_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_5_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_5_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_5_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+
+        if (ENABLE_ELEC_CHANNEL_5_LED=y)
+            config ELEC_CHANNEL_5_LED_NAME
+                string
+                prompt "led name"
+                default "led_5"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_5_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_5_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_5_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 6 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_6
+    bool
+    prompt "channel 6 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=6)
+
+    config ELEC_CHANNEL_6_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 6
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_6_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_6"
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_6_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_6=y && ELEC_CHANNEL_6_RELAY_TYPE=0)
+        config ELEC_CHANNEL_6_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_6_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_6_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_6=y && ELEC_CHANNEL_6_RELAY_TYPE=1)
+        config ELEC_CHANNEL_6_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_6_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_6_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_6_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_6_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_6_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+
+        if (ENABLE_ELEC_CHANNEL_6_LED=y)
+            config ELEC_CHANNEL_6_LED_NAME
+                string
+                prompt "led name"
+                default "led_6"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_6_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_6_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_6_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 7 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_7
+    bool
+    prompt "channel 7 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=7)
+
+    config ELEC_CHANNEL_7_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 7
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_7_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_7"
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_7_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_7=y && ELEC_CHANNEL_7_RELAY_TYPE=0)
+        config ELEC_CHANNEL_7_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_7_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_7_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_7=y && ELEC_CHANNEL_7_RELAY_TYPE=1)
+        config ELEC_CHANNEL_7_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_7_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_7_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_7_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_7_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_7_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+
+        if (ENABLE_ELEC_CHANNEL_7_LED=y)
+            config ELEC_CHANNEL_7_LED_NAME
+                string
+                prompt "led name"
+                default "led_7"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_7_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_7_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_7_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 8 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_8
+    bool
+    prompt "channel 8 config"
+    default y
+    depends on (ELEC_CHANNEL_NUM>=8)
+
+    config ELEC_CHANNEL_8_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 8
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_8_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_8"
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_8_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_8=y && ELEC_CHANNEL_8_RELAY_TYPE=0)
+        config ELEC_CHANNEL_8_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_8_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_8_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_8=y && ELEC_CHANNEL_8_RELAY_TYPE=1)
+        config ELEC_CHANNEL_8_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_8_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_8_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_8_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_8_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_8_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+
+        if (ENABLE_ELEC_CHANNEL_8_LED=y)
+            config ELEC_CHANNEL_8_LED_NAME
+                string
+                prompt "led name"
+                default "led_8"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_8_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_8_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_8_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+endmenu
+endif
+
+if (ENABLE_TY_LOAD_OEM_PAR=n)
+menu "elec default channel configuration"
+#################### 通道上电模式配置 ####################
+config ELEC_CHANNEL_POWER_ON_MODE
+    int
+    prompt "Power-on mode selection"
+    range 0 2
+    default 2
+    help
+    0：上电各通道保持断电状态；1：上电各个通道保持通电状态；2：上电各个通道保持断电前状态
+
+config ELEC_CHANNEL_POWER_ON_DPID
+    int
+    prompt "Power-on mode dp id"
+    range 1 999
+    default 38
+    help
+    断电记忆 DP ID
+
+#################### 通道配置 ####################
+config DEFAULT_ELEC_CHANNEL_NUM
+    int
+    prompt "default channel number"
+    range 1 8
+    default 1 if T1_PLUG_WAY_NUM=1
+    default 2 if T1_PLUG_WAY_NUM=2
+    default 3 if T1_PLUG_WAY_NUM=3
+    default 4 if T1_PLUG_WAY_NUM=4
+    default 1
+    help
+    通道个数
+
+#################### 通道 1 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_1
+    bool
+    prompt "channel 1 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=1)
+
+    config ELEC_CHANNEL_1_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 1
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_1_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_1"
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_1_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_1=y && ELEC_CHANNEL_1_RELAY_TYPE=0)
+        config ELEC_CHANNEL_1_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 24
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_1_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_1_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_1=y && ELEC_CHANNEL_1_RELAY_TYPE=1)
+        config ELEC_CHANNEL_1_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 24
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_1_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 26
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_1_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_1_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_1_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_1_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_1=y)
+
+        if (ENABLE_ELEC_CHANNEL_1_LED=y)
+            config ELEC_CHANNEL_1_LED_NAME
+                string
+                prompt "led name"
+                default "led_1"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_1_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 26
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_1_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_1_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 2 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_2
+    bool
+    prompt "channel 2 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=2)
+
+    config ELEC_CHANNEL_2_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 2
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_2_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_2"
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_2_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_2=y && ELEC_CHANNEL_2_RELAY_TYPE=0)
+        config ELEC_CHANNEL_2_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 14
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_2_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_2_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_2=y && ELEC_CHANNEL_2_RELAY_TYPE=1)
+        config ELEC_CHANNEL_2_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 7
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_2_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 17
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_2_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_2_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_2_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_2_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_2=y)
+
+        if (ENABLE_ELEC_CHANNEL_2_LED=y)
+            config ELEC_CHANNEL_2_LED_NAME
+                string
+                prompt "led name"
+                default "led_2"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_2_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 8
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_2_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_2_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 3 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_3
+    bool
+    prompt "channel 3 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=3)
+
+    config ELEC_CHANNEL_3_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 3
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_3_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_3"
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_3_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_3=y && ELEC_CHANNEL_3_RELAY_TYPE=0)
+        config ELEC_CHANNEL_3_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 7
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_3_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_3_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_3=y && ELEC_CHANNEL_3_RELAY_TYPE=1)
+        config ELEC_CHANNEL_3_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_3_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_3_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_3_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_3_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_3_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_3=y)
+
+        if (ENABLE_ELEC_CHANNEL_3_LED=y)
+            config ELEC_CHANNEL_3_LED_NAME
+                string
+                prompt "led name"
+                default "led_3"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_3_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 15
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_3_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_3_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 4 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_4
+    bool
+    prompt "channel 4 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=4)
+
+    config ELEC_CHANNEL_4_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 4
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_4_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_4"
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_4_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_4=y && ELEC_CHANNEL_4_RELAY_TYPE=0)
+        config ELEC_CHANNEL_4_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 8
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_4_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_4_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_4=y && ELEC_CHANNEL_4_RELAY_TYPE=1)
+        config ELEC_CHANNEL_4_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_4_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_4_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_4_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_4_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_4_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_4=y)
+
+        if (ENABLE_ELEC_CHANNEL_4_LED=y)
+            config ELEC_CHANNEL_4_LED_NAME
+                string
+                prompt "led name"
+                default "led_4"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_4_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 17
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_4_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_4_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 5 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_5
+    bool
+    prompt "channel 5 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=5)
+
+    config ELEC_CHANNEL_5_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 5
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_5_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_5"
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_5_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_5=y && ELEC_CHANNEL_5_RELAY_TYPE=0)
+        config ELEC_CHANNEL_5_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_5_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_5_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_5=y && ELEC_CHANNEL_5_RELAY_TYPE=1)
+        config ELEC_CHANNEL_5_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_5_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_5_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_5_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_5_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_5_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_5=y)
+
+        if (ENABLE_ELEC_CHANNEL_5_LED=y)
+            config ELEC_CHANNEL_5_LED_NAME
+                string
+                prompt "led name"
+                default "led_5"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_5_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_5_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_5_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 6 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_6
+    bool
+    prompt "channel 6 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=6)
+
+    config ELEC_CHANNEL_6_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 6
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_6_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_6"
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_6_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_6=y && ELEC_CHANNEL_6_RELAY_TYPE=0)
+        config ELEC_CHANNEL_6_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_6_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_6_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_6=y && ELEC_CHANNEL_6_RELAY_TYPE=1)
+        config ELEC_CHANNEL_6_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_6_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_6_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_6_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_6_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_6_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_6=y)
+
+        if (ENABLE_ELEC_CHANNEL_6_LED=y)
+            config ELEC_CHANNEL_6_LED_NAME
+                string
+                prompt "led name"
+                default "led_6"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_6_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_6_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_6_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 7 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_7
+    bool
+    prompt "channel 7 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=7)
+
+    config ELEC_CHANNEL_7_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 7
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_7_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_7"
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_7_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_7=y && ELEC_CHANNEL_7_RELAY_TYPE=0)
+        config ELEC_CHANNEL_7_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_7_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_7_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_7=y && ELEC_CHANNEL_7_RELAY_TYPE=1)
+        config ELEC_CHANNEL_7_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_7_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_7_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_7_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_7_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_7_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_7=y)
+
+        if (ENABLE_ELEC_CHANNEL_7_LED=y)
+            config ELEC_CHANNEL_7_LED_NAME
+                string
+                prompt "led name"
+                default "led_7"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_7_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_7_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_7_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+#################### 通道 8 配置 ####################
+menuconfig ENABLE_ELEC_CHANNEL_8
+    bool
+    prompt "channel 8 config"
+    default y
+    depends on (DEFAULT_ELEC_CHANNEL_NUM>=8)
+
+    config ELEC_CHANNEL_8_SWITCH_DPID
+        int
+        prompt "switch dpid"
+        range 0 999
+        default 8
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+        help
+        开关 DP
+
+    config ELEC_CHANNEL_8_RELAY_NAME
+        string
+        prompt "relay name"
+        default "relay_8"
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+        help
+        继电器设备名称
+    config ELEC_CHANNEL_8_RELAY_TYPE
+        int
+        prompt "relay type"
+        range 0 1
+        default 0
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+        help
+        继电器类型， 0 ：电保持继电器， 1 ：磁保持继电器
+
+    if (ENABLE_ELEC_CHANNEL_8=y && ELEC_CHANNEL_8_RELAY_TYPE=0)
+        config ELEC_CHANNEL_8_RELAY_PIN
+            int
+            prompt "elec relay pin"
+            range 0 999
+            default 999
+            help
+            电保持继电器控制引脚
+        config ELEC_CHANNEL_8_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_8_RELAY_LEVEL
+            int
+            prompt "elec relay valid level"
+            range 0 1
+            default 1
+            help
+            电保持继电器导通电平
+    endif
+
+    if (ENABLE_ELEC_CHANNEL_8=y && ELEC_CHANNEL_8_RELAY_TYPE=1)
+        config ELEC_CHANNEL_8_RELAY_ON_PIN
+            int
+            prompt "mag relay on pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 on_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_8_RELAY_OFF_PIN
+            int
+            prompt "mag relay off pin"
+            range 0 999
+            default 999
+            help
+            磁保持继电器 off_pin ，更多信息查看 tdd_relay_mag.h 文件
+        config ELEC_CHANNEL_8_RELAY_PIN_MODE
+            int
+            prompt "elec pin mode"
+            range 0 6
+            default 4
+            help
+            4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+        config ELEC_CHANNEL_8_RELAY_NORMAL_LEVEL
+            int
+            prompt "mag relay normal level"
+            range 0 1
+            default 0
+            help
+            磁保持继电器平常状态下电平值
+        config ELEC_CHANNEL_8_RELAY_HOLD_MS
+            int
+            prompt "mag relay hold time(ms)"
+            range 1 500
+            default 40
+            help
+            磁保持继电器动作时，电平保持时间，单位： ms
+    endif
+
+    menuconfig ENABLE_ELEC_CHANNEL_8_LED
+        bool
+        prompt "channel led config"
+        default y
+        depends on (ENABLE_ELEC_CHANNEL_8=y)
+
+        if (ENABLE_ELEC_CHANNEL_8_LED=y)
+            config ELEC_CHANNEL_8_LED_NAME
+                string
+                prompt "led name"
+                default "led_8"
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_8_LED_PIN
+                int
+                prompt "led pin"
+                range 0 999
+                default 999
+                help
+                通道指示灯名称
+            config ELEC_CHANNEL_8_LED_MODE
+                int
+                prompt "led pin mode"
+                range 0 6
+                default 4
+                help
+                4 ：推挽模式（ TUYA_GPIO_PUSH_PULL ）；5 ：开漏输出模式（ TUYA_GPIO_OPENDRAIN ）；6 ：开漏输出上拉模式（ TUYA_GPIO_OPENDRAIN_PULLUP ）
+            config ELEC_CHANNEL_8_LED_LEVEL
+                int
+                prompt "led valid level"
+                range 0 1
+                default 1
+                help
+                led 开启电平
+        endif
+
+endmenu
+endif

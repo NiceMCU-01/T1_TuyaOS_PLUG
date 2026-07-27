@@ -1,0 +1,50 @@
+menuconfig ENABLE_ENERGY_FAULT
+    bool
+    prompt "Electricity energy fault config enable"
+    default y
+    help
+    是否打开过充保护功能
+
+if (ENABLE_ENERGY_FAULT)
+
+config ENERGY_METER_FAULT_DPID
+    int
+    prompt "fault DPID"
+    range 1 255
+    default 26
+    help
+    故障告警 DPID
+
+config ENERGY_METER_FAULT_OVER_CURRENT
+    int
+    prompt "over current config"
+    range 0 30000
+    default 0
+    help
+    过流值设置，可配置区间为 1mA-30mA。为 0 则不打开该故障检测。
+
+config ENERGY_METER_FAULT_OVER_VOLTAGE
+    int
+    prompt "over voltage config"
+    range 0 440
+    default 0
+    help
+    过压值设置，设备工作在 220v 情况下可配置区间为 220V-440V；设备工作在 120v 情况下可配置区间为 120V-240V 。为 0 则不打开该故障检测。
+
+config ENERGY_METER_FAULT_LESS_VOLTAGE
+    int
+    prompt "less voltage config"
+    range 0 176
+    default 0
+    help
+    欠压值设置，设备工作在 220v 情况下可配置区间为 73V-176V；设备工作在 120v 情况下可配置区间为 40V-96V。为 0 则不打开该故障检测。
+
+config ENERGY_METER_FAULT_OVER_POWER
+    int
+    prompt "over power config"
+    range 0 8000
+    default 0
+    help
+    过载设置，设备工作在 220v 情况下可配置区间为 0-7700W；设备工作在 120v 情况下可配置区间为 0-7700W。为 0 则不打开该故障检测。(BL0942:0-7700W)
+
+endif

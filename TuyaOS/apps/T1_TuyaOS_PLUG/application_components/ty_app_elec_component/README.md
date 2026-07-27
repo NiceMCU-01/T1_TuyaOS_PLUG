@@ -1,0 +1,3 @@
+# ty_app_elec_component
+
+电工产品开发包的功能集成组件

@@ -1,0 +1,1930 @@
+if (ENABLE_TY_LOAD_OEM_PAR=y)
+menu "elec button configuration"
+config ELEC_BUTTON_NUM
+    int
+    prompt "button number"
+    range 1 9
+    default 9
+    help
+    按键个数
+
+#################### 按键 0 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_0
+    bool
+    prompt "button 0 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=1)
+
+if (ENABLE_ELEC_BUTTON_0=y)
+    config ELEC_BUTTON_0_NAME
+        string
+        prompt "button name"
+        default "button_0"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_0_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 24
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_0_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_0_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_0_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_0_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_0_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_0_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_0_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 0
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_0_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_0_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_0_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 1 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_1
+    bool
+    prompt "button 1 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=2)
+
+if (ENABLE_ELEC_BUTTON_1=y)
+    config ELEC_BUTTON_1_NAME
+        string
+        prompt "button name"
+        default "button_1"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_1_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 14
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_1_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_1_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_1_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_1_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_1_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_1_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_1_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 2
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_1_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_1_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_1_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 2 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_2
+    bool
+    prompt "button 2 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=3)
+
+if (ENABLE_ELEC_BUTTON_2=y)
+    config ELEC_BUTTON_2_NAME
+        string
+        prompt "button name"
+        default "button_2"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_2_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 16
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_2_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_2_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_2_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_2_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_2_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_2_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_2_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 3
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_2_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_2_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_2_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 3 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_3
+    bool
+    prompt "button 3 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=4)
+
+if (ENABLE_ELEC_BUTTON_3=y)
+    config ELEC_BUTTON_3_NAME
+        string
+        prompt "button name"
+        default "button_3"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_3_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 20
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_3_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_3_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_3_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_3_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_3_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_3_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_3_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 4
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_3_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_3_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_3_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 4 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_4
+    bool
+    prompt "button 4 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=5)
+
+if (ENABLE_ELEC_BUTTON_4=y)
+    config ELEC_BUTTON_4_NAME
+        string
+        prompt "button name"
+        default "button_4"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_4_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 22
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_4_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_4_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_4_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_4_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_4_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_4_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_4_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 5
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_4_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_4_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_4_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 5 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_5
+    bool
+    prompt "button 5 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=6)
+
+if (ENABLE_ELEC_BUTTON_5=y)
+    config ELEC_BUTTON_5_NAME
+        string
+        prompt "button name"
+        default "button_5"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_5_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_5_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_5_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_5_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_5_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_5_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_5_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_5_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 6
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_5_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_5_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_5_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 6 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_6
+    bool
+    prompt "button 6 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=7)
+
+if (ENABLE_ELEC_BUTTON_6=y)
+    config ELEC_BUTTON_6_NAME
+        string
+        prompt "button name"
+        default "button_6"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_6_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_6_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_6_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_6_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_6_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_6_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_6_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_6_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 7
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_6_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_6_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_6_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 7 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_7
+    bool
+    prompt "button 7 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=8)
+
+if (ENABLE_ELEC_BUTTON_7=y)
+    config ELEC_BUTTON_7_NAME
+        string
+        prompt "button name"
+        default "button_7"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_7_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_7_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_7_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_7_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_7_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_7_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_7_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_7_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 8
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_7_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_7_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_7_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 8 配置 ####################
+menuconfig ENABLE_ELEC_BUTTON_8
+    bool
+    prompt "button 8 config"
+    default y
+    depends on (ELEC_BUTTON_NUM>=9)
+
+if (ENABLE_ELEC_BUTTON_8=y)
+    config ELEC_BUTTON_8_NAME
+        string
+        prompt "button name"
+        default "button_8"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_8_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_8_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_8_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_8_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_8_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_8_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_8_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_8_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 9
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_8_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_8_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_8_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+endmenu
+endif
+
+if(ENABLE_TY_LOAD_OEM_PAR=n)
+menu "elec default button configuration"
+config DEFAULT_ELEC_BUTTON_NUM
+    int
+    prompt "default button number"
+    range 1 9
+    default 1
+    help
+    按键个数
+
+#################### 按键 0 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_0
+    bool
+    prompt "default button 0 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=1)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_0=y)
+    config ELEC_BUTTON_0_NAME
+        string
+        prompt "button name"
+        default "button_0"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_0_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 24
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_0_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_0_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_0_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_0_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_0_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_0_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_0_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 1
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_0_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_0_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_0_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 1 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_1
+    bool
+    prompt "default button 1 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=2)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_1=y)
+    config ELEC_BUTTON_1_NAME
+        string
+        prompt "button name"
+        default "button_1"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_1_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 14
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_1_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_1_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_1_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_1_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_1_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_1_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_1_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 2
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_1_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_1_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_1_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+#################### 按键 2 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_2
+    bool
+    prompt "default button 2 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=3)
+
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_2=y)
+    config ELEC_BUTTON_2_NAME
+        string
+        prompt "button name"
+        default "button_2"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_2_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 16
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_2_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_2_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_2_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_2_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_2_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_2_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_2_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 3
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_2_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_2_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_2_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 3 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_3
+    bool
+    prompt "default button 3 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=4)
+
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_3=y)
+    config ELEC_BUTTON_3_NAME
+        string
+        prompt "button name"
+        default "button_3"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_3_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 20
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_3_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_3_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_3_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_3_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_3_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_3_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_3_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 4
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_3_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_3_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_3_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+#################### 按键 4 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_4
+    bool
+    prompt "default button 4 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=5)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_4=y)
+    config ELEC_BUTTON_4_NAME
+        string
+        prompt "button name"
+        default "button_4"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_4_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 22
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_4_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_4_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_4_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_4_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_4_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_4_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_4_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 5
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_4_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_4_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_4_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+#################### 按键 5 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_5
+    bool
+    prompt "default button 5 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=6)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_5=y)
+    config ELEC_BUTTON_5_NAME
+        string
+        prompt "button name"
+        default "button_5"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_5_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_5_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_5_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_5_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_5_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_5_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_5_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_5_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 6
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_5_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_5_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_5_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+
+#################### 按键 6 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_6
+    bool
+    prompt "default button 6 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=7)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_6=y)
+    config ELEC_BUTTON_6_NAME
+        string
+        prompt "button name"
+        default "button_6"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_6_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_6_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_6_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_6_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_6_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_6_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_6_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_6_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 7
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_6_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_6_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_6_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+#################### 按键 7 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_7
+    bool
+    prompt "default button 7 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=8)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_7=y)
+    config ELEC_BUTTON_7_NAME
+        string
+        prompt "button name"
+        default "button_7"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_7_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_7_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_7_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_7_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_7_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_7_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_7_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_7_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 8
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_7_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_7_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_7_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+#################### 按键 8 配置 ####################
+menuconfig ENABLE_DEFAULT_ELEC_BUTTON_8
+    bool
+    prompt "default button 8 config"
+    default y
+    depends on (DEFAULT_ELEC_BUTTON_NUM>=9)
+
+if (ENABLE_DEFAULT_ELEC_BUTTON_8=y)
+    config ELEC_BUTTON_8_NAME
+        string
+        prompt "button name"
+        default "button_8"
+        help
+        按键设备名称
+
+    config ELEC_BUTTON_8_PIN
+        int
+        prompt "button pin"
+        range 0 999
+        default 999
+        help
+        按键设备引脚配置
+
+    config ELEC_BUTTON_8_ACTIVE_LEVEL
+        int
+        prompt "button active level"
+        range 0 1
+        default 0
+        help
+        按键有效触发电平
+
+    config ELEC_BUTTON_8_DEBOUNCE_MS
+        int
+        prompt "button debounce time(ms)"
+        range 1 500
+        default 50
+        help
+        按键消抖时间，单位： ms
+
+    config ELEC_BUTTON_8_LONG_START_MS
+        int
+        prompt "button long press time(ms)"
+        range 0 10000
+        default 3000
+        help
+        按键长按开始触发时间，单位： ms
+
+    config ELEC_BUTTON_8_LONG_KEEP_MS
+        int
+        prompt "button hold press time(ms)"
+        range 200 3000
+        default 1000
+        help
+        按键长按触发之后每隔 n(ms) 执行一次
+
+    config ELEC_BUTTON_8_REPEAT_COUNT
+        int
+        prompt "button repeat click count"
+        range 0 16
+        default 4
+        help
+        按键连击有效次数，达到连击次数后执行对应功能
+
+    config ELEC_BUTTON_8_REPEAT_MS
+        int
+        prompt "button repeat click interal time(ms)"
+        range 0 2000
+        default 500
+        help
+        按键连击有效间隔时间(ms),连击中间停顿的有效时间,超过时间重新记录连击次数
+
+    ###### 按键功能配置 #####
+
+    config ELEC_BUTTON_8_SINGLE_CLICK
+        int
+        prompt "button single click function"
+        range 0 12
+        default 9
+        help
+        短按执行功能: 0.无功能; 1.总控开关； 2.通道 1 状态反转； 3.通道 2 状态反转； 4.通道 3 状态反转； 5.通道 4 状态反转； 6.通道 5 状态反转； 7.通道 6 状态反转； 8.通道 7 状态反转； 9.通道 8 状态反转
+
+    config ELEC_BUTTON_8_DOUBLE_CLICK
+        int
+        prompt "button double click function"
+        range 0 12
+        default 0
+        help
+        双击执行功能: 0.无功能;
+
+    config ELEC_BUTTON_8_LONG_PRESS
+        int
+        prompt "button long press function"
+        range 0 12
+        default 10
+        help
+        长按执行功能: 0.无功能; 10. 本地移除设备
+
+    config ELEC_BUTTON_8_REPEAT_CLICK
+        int
+        prompt "button repeat click function"
+        range 0 12
+        default 0
+        help
+        多击执行功能: 0.无功能; 11. 童锁解锁
+endif
+endmenu
+endif
+
