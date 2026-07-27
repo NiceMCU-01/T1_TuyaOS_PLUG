@@ -1,0 +1,20 @@
+# TuyaOS application generated configuration and build output
+TuyaOS/apps/T1_TuyaOS_PLUG/build/tuya_app.config
+TuyaOS/apps/T1_TuyaOS_PLUG/include/tuya_app_config.h
+TuyaOS/apps/T1_TuyaOS_PLUG/output/
+TuyaOS/apps/T1_TuyaOS_PLUG/libs/
+TuyaOS/apps/T1_TuyaOS_PLUG/**/*.bin
+TuyaOS/apps/T1_TuyaOS_PLUG/**/*.elf
+TuyaOS/apps/T1_TuyaOS_PLUG/**/*.map
+
+# Local project records; do not publish handoff or AI working notes
+doc/
+TuyaOS/apps/T1_TuyaOS_PLUG/doc/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
